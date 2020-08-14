@@ -8,8 +8,8 @@ const userRoles = config.userRoles = {
 }
 
 config.accessLevels = {
-    guest: userRoles.guest | userRoles.user | userRoles.admin | userRoles.superAdmin, 
-    user: userRoles.user | userRoles.admin | userRoles.superAdmin,                    
-    admin: userRoles.admin | userRoles.superAdmin,                                    
+    guest: userRoles.guest,
+    user: userRoles.user,                    
+    admin: userRoles.admin,                                    
     superAdmin: userRoles.superAdmin,                                                 
 }

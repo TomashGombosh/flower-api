@@ -3,12 +3,16 @@ import passport from 'passport';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import models from './models'
+import router from './routes/user';
 
 const app = express();
 
+// parse application/json
 app.use(bodyParser.json());
+//parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
 
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || 8081;
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
@@ -34,7 +38,7 @@ require('./config/passport')(passport);
 //default route
 app.get('/', (req, res) => res.send('Hello my World'));
 
-require('./routes/user.js')(app);
+app.use('/api/user', router)
 
 //create a server
 var server = app.listen(port, function() {

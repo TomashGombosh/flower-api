@@ -1,24 +1,22 @@
 import passport from 'passport';
+import express from 'express';
 import config from '../config/config';
 import { allowOnly } from '../services/routesHelper';
 import { create, login, findAllUsers, 
     findById, update, deleteUser
-} from '../controllers/user';
+} from '../contollers/user';
+const router = express.Router();
 
-module.exports = (app) => {
   // create a new user
-  app.post(
-    '/api/users/create',
-    passport.authenticate('jwt', { session: false }),
-    allowOnly(config.accessLevels.admin, create)
-  );
+  router.post(
+    '/create', create);
 
   // user login
-  app.post('/api/users/login', login);
+  router.post('/login', login);
 
   //retrieve all users
-  app.get(
-    '/api/users', 
+  router.get(
+    '/', 
     passport.authenticate('jwt', { 
       session: false 
     }),
@@ -26,8 +24,8 @@ module.exports = (app) => {
   );
 
   // retrieve user by id
-  app.get(
-    '/api/users/:userId',
+  router.get(
+    '/:userId',
     passport.authenticate('jwt', {
       session: false,
     }),
@@ -35,8 +33,8 @@ module.exports = (app) => {
   );
 
   // update a user with id
-  app.put(
-    '/api/users/:userId',
+  router.put(
+    '/:userId',
     passport.authenticate('jwt', {
       session: false,
     }),
@@ -44,12 +42,12 @@ module.exports = (app) => {
   );
 
   // delete a user
-  app.delete(
-    '/api/users/:userId',
+  router.delete(
+    '/:userId',
     passport.authenticate('jwt', {
       session: false,
     }),
     allowOnly(config.accessLevels.admin, deleteUser)
   );
 
-};
+export default router;
