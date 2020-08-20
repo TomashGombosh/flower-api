@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import models from './models'
 import router from './routes/user';
+import userRouter from './routes/user';
+import imageRouter from './routes/image';
 
 const app = express();
 
@@ -38,10 +40,11 @@ require('./config/passport')(passport);
 //default route
 app.get('/', (req, res) => res.send('Hello my World'));
 
-app.use('/api/user', router)
+app.use('/api/user', userRouter)
+app.use('/api/image', imageRouter)
 
 //create a server
-var server = app.listen(port, function() {
+var server = app.listen(port, () => {
   var host = server.address().address;
   var port = server.address().port;
 

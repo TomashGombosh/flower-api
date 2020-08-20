@@ -1,6 +1,6 @@
 export default (sequelize, DataTypes) => {
     const User = sequelize.define(
-      'User',
+      'user',
       {
         firstname: DataTypes.STRING,
         lastname: DataTypes.STRING,
@@ -12,8 +12,8 @@ export default (sequelize, DataTypes) => {
       {}
     );
   
-    User.associate = function(models) {
-      // associations go here
+    User.associate = (models) => {
+        User.hasOne(models.image)
     };
   
     return User;

@@ -5,17 +5,17 @@ import { allowOnly } from '../services/routesHelper';
 import { create, login, findAllUsers, 
     findById, update, deleteUser
 } from '../contollers/user';
-const router = express.Router();
+const userRouter = express.Router();
 
   // create a new user
-  router.post(
+  userRouter.post(
     '/create', create);
 
   // user login
-  router.post('/login', login);
+  userRouter.post('/login', login);
 
   //retrieve all users
-  router.get(
+  userRouter.get(
     '/', 
     passport.authenticate('jwt', { 
       session: false 
@@ -24,7 +24,7 @@ const router = express.Router();
   );
 
   // retrieve user by id
-  router.get(
+  userRouter.get(
     '/:userId',
     passport.authenticate('jwt', {
       session: false,
@@ -33,7 +33,7 @@ const router = express.Router();
   );
 
   // update a user with id
-  router.put(
+  userRouter.put(
     '/:userId',
     passport.authenticate('jwt', {
       session: false,
@@ -42,7 +42,7 @@ const router = express.Router();
   );
 
   // delete a user
-  router.delete(
+  userRouter.delete(
     '/:userId',
     passport.authenticate('jwt', {
       session: false,
@@ -50,4 +50,4 @@ const router = express.Router();
     allowOnly(config.accessLevels.admin, deleteUser)
   );
 
-export default router;
+export default userRouter;
